@@ -31,3 +31,7 @@ Project descriptions distinguish delivery contributions, ongoing work and assess
 ## Theme and usability
 
 Light/dark toggle with a saved preference; device theme is used until overridden. Desktop users can reset to device theme. Mobile navigation, clear filters, accessible project dialogs, visible keyboard focus, reduced motion and responsive cards are included. All existing project and career content remains intact. Local storage is optional and failures are handled.
+
+## Typography and graphic motion
+
+Syne is used for headings/display; Manrope for body and UI text. Variable WOFF2 fonts are hosted locally with their SIL Open Font License files. The engineering graphic uses CSS perspective, a short cube/layer entrance and desktop pointer tilt. Motion is simplified on touch devices and disabled for reduced-motion preferences. There is no WebGL library or continuous animation loop. The profile links point to https://www.linkedin.com/in/muhamad-faiz-ibrahim/.

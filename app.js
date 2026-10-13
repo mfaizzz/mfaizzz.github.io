@@ -23,3 +23,12 @@ matchMedia('(min-width: 769px)').addEventListener('change',closeMenu);
 document.querySelector('#reset-filters').addEventListener('click',()=>{search.value='';active='All';buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter==='All')));filter();search.focus()});
 const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){nav.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+entry.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}}},{rootMargin:'-15% 0px -60% 0px',threshold:0});
 document.querySelectorAll('section[id]').forEach(section=>observer.observe(section));
+
+// A bounded hero entrance and coalesced pointer tilt; no idle frame loop.
+const graphic=document.querySelector('.architecture'),reduceMotion=matchMedia('(prefers-reduced-motion: reduce)'),finePointer=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 769px)');
+let tiltFrame=0,lastPointer=null;
+function clearTilt(){if(tiltFrame)cancelAnimationFrame(tiltFrame);tiltFrame=0;lastPointer=null;graphic.style.removeProperty('--tilt-x');graphic.style.removeProperty('--tilt-y')}
+function syncGraphicMotion(){clearTilt();if(reduceMotion.matches)graphic.classList.remove('motion-enter')}
+graphic.addEventListener('pointermove',event=>{if(reduceMotion.matches||!finePointer.matches)return;lastPointer={x:event.clientX,y:event.clientY};if(tiltFrame)return;tiltFrame=requestAnimationFrame(()=>{tiltFrame=0;if(!lastPointer)return;const rect=graphic.getBoundingClientRect();const x=Math.max(-.5,Math.min(.5,(lastPointer.x-rect.left)/rect.width-.5));const y=Math.max(-.5,Math.min(.5,(lastPointer.y-rect.top)/rect.height-.5));graphic.style.setProperty('--tilt-x',(-y*5).toFixed(2)+'deg');graphic.style.setProperty('--tilt-y',(x*6).toFixed(2)+'deg');})});
+graphic.addEventListener('pointerleave',clearTilt);reduceMotion.addEventListener('change',syncGraphicMotion);finePointer.addEventListener('change',syncGraphicMotion);window.addEventListener('pagehide',clearTilt);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTilt()});
+const graphicObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){if(!reduceMotion.matches)graphic.classList.add('motion-enter');graphicObserver.disconnect();}},{threshold:.25});graphicObserver.observe(graphic);
