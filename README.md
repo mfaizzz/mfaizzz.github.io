@@ -2,6 +2,12 @@
 
 Professional portfolio covering Snowflake, Azure Data Factory, Microsoft Fabric, Power BI and enterprise system integration.
 
+## Links
+
+- [Portfolio website](https://mfaizzz.github.io/)
+- [Resume PDF](https://mfaizzz.github.io/resume.pdf)
+- [Integration portfolio PDF](https://mfaizzz.github.io/integration-portfolio.pdf)
+
 ## Files
 
 - `index.html`: accessible, responsive portfolio page.
