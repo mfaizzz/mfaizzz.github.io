@@ -27,3 +27,7 @@ Run `python3 -m http.server 8765` from this directory, then open `http://localho
 For `mfaizzz.github.io`, use GitHub Pages: Settings > Pages > Deploy from a branch > main > / (root).
 
 Project descriptions distinguish delivery contributions, ongoing work and assessments. Earlier assignments can include shared involvement. Employment dates and certifications follow the supplied résumé; EFTECH is a concurrent freelance engagement for PETRONAS.
+
+## Theme and usability
+
+Light/dark toggle with a saved preference; device theme is used until overridden. Desktop users can reset to device theme. Mobile navigation, clear filters, accessible project dialogs, visible keyboard focus, reduced motion and responsive cards are included. All existing project and career content remains intact. Local storage is optional and failures are handled.
