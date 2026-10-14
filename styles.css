@@ -39,3 +39,23 @@ h2{font-weight:700;letter-spacing:-1px}.project h3{font-weight:650;letter-spacin
 @media(prefers-reduced-motion:reduce){.architecture,.layer,.connector,.cube-stage{transform:none!important}.data-cube{animation:none!important}.motion-enter *{animation:none!important}}
 
 .graphic-header,.cube-stage{transform-style:preserve-3d}.cube-top{background:var(--accent-soft)}.cube-right{background:var(--surface-2)}
+
+/* Continuous pipeline motion, paused offscreen and by user/reduced-motion preference. */
+.graphic-label{display:grid;gap:10px}.motion-toggle{justify-self:start;border:1px solid var(--input-border);border-radius:7px;background:var(--surface);color:var(--muted);font-size:11px;font-weight:650;padding:6px 10px;min-height:34px}.motion-toggle:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}.motion-toggle:disabled{cursor:default}
+.architecture{overflow:visible;isolation:auto}.layer{--depth:18px;--phase:0s;transform:translateZ(var(--depth)) rotateY(-2deg);border-radius:0 10px 10px 0;box-shadow:0 7px 12px #00000012}.layer:nth-of-type(4){--depth:24px;--phase:-1s}.layer:nth-of-type(6){--depth:30px;--phase:-2s}.layer.final{--depth:36px;--phase:-3s;transform:translateZ(var(--depth)) rotateY(-2deg);box-shadow:0 10px 18px #00000018}
+.cube-left{background:var(--surface-2);transform:rotateY(-90deg) translateZ(22px)}.cube-back{background:var(--accent-soft);transform:rotateY(180deg) translateZ(22px)}.cube-bottom{background:var(--surface-2);transform:rotateX(-90deg) translateZ(22px)}
+.connector{height:32px;line-height:32px;padding-left:20px;transform:translateZ(20px);--flow-phase:0s}.connector:nth-of-type(5){--flow-phase:-.8s}.connector:nth-of-type(7){--flow-phase:-1.6s}.flow-arrow{display:inline-block;font-size:23px;line-height:26px;color:var(--accent)}.flow-packet{position:absolute;left:48px;top:4px;height:6px;width:6px;border-radius:2px;background:var(--accent);opacity:.65;box-shadow:0 0 9px var(--accent-soft)}
+@media(prefers-reduced-motion:no-preference){
+.architecture.motion-enter .data-cube{animation:cube-drift 8s ease-in-out infinite}
+.architecture.motion-enter .layer{animation:layer-float 6s ease-in-out infinite;animation-delay:var(--phase)}
+.architecture.motion-enter .connector{animation:none}
+.architecture.motion-enter .flow-arrow{animation:arrow-down 2.4s ease-in-out infinite;animation-delay:var(--flow-phase)}
+.architecture.motion-enter .flow-packet{animation:packet-down 2.4s cubic-bezier(.4,0,.2,1) infinite;animation-delay:var(--flow-phase)}
+}
+@keyframes cube-drift{0%,100%{transform:rotateX(-24deg) rotateY(-34deg) translateY(0)}50%{transform:rotateX(-18deg) rotateY(48deg) translateY(-5px)}}
+@keyframes layer-float{0%,100%{transform:translateZ(var(--depth)) rotateY(-2deg) translateY(0)}50%{transform:translateZ(calc(var(--depth) + 8px)) rotateY(1deg) translateY(-2px)}}
+@keyframes arrow-down{0%,100%{transform:translateY(-3px);opacity:.65}50%{transform:translateY(6px);opacity:1}}
+@keyframes packet-down{0%{transform:translateY(0);opacity:0}20%{opacity:.8}80%{opacity:.8}100%{transform:translateY(21px);opacity:0}}
+.architecture[data-running=false] *{animation-play-state:paused!important}
+@media(max-width:768px){.layer,.layer.final{--depth:0px;transform:none;box-shadow:0 4px 9px #0000000a}.architecture.motion-enter .layer{animation:none}.connector{height:30px}.architecture.motion-enter .data-cube{animation-duration:10s}.flow-packet{width:5px;height:5px}}
+@media(prefers-reduced-motion:reduce){.flow-arrow,.flow-packet{animation:none!important;transform:none!important}.flow-packet{display:none}.motion-toggle{color:var(--muted)}.layer,.layer.final{transform:none!important}}

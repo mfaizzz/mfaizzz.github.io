@@ -35,3 +35,7 @@ Light/dark toggle with a saved preference; device theme is used until overridden
 ## Typography and graphic motion
 
 Syne is used for headings/display; Manrope for body and UI text. Variable WOFF2 fonts are hosted locally with their SIL Open Font License files. The engineering graphic uses CSS perspective, a short cube/layer entrance and desktop pointer tilt. Motion is simplified on touch devices and disabled for reduced-motion preferences. There is no WebGL library or continuous animation loop. The profile links point to https://www.linkedin.com/in/muhamad-faiz-ibrahim/.
+
+## Continuous pipeline animation
+
+The engineering-focus graphic has a full six-face 3D cube, staggered floating layers and downward-moving arrows/packets. A persisted pause/resume control is provided. Animation pauses when the panel is offscreen or the tab is hidden; reduced-motion preferences render a static panel. Mobile retains cube/arrow motion with static readable cards.
